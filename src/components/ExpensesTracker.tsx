@@ -2,15 +2,14 @@ import { useState } from "react";
 import ExpensesFilter from "./ExpensesFilter";
 import ExpensesTable from "./ExpensesTable";
 import Container from "@mui/material/Container";
+import Box from "@mui/material/Box";
+import { expensesSample } from "../utils/data";
+import ExpensesForm from "./ExpensesForm";
+import Expense from "../types/ExpenseType";
 
 const ExpensesTracker = () => {
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
-  const [expenses, setExpenses] = useState([
-    { id: 1, description: "aaa", category: "Utilities", amount: 10 },
-    { id: 2, description: "bbb", category: "Groceries", amount: 10 },
-    { id: 3, description: "ccc", category: "Utilities", amount: 10 },
-    { id: 4, description: "ddd", category: "Entertainments", amount: 10 },
-  ]);
+  const [expenses, setExpenses] = useState(expensesSample);
 
   const filterExpenses = () => {
     if (selectedCategory) {
@@ -36,11 +35,18 @@ const ExpensesTracker = () => {
     setSelectedCategory(category);
   };
 
+  const handleAddExpense = (data: Expense) => {
+    setExpenses([...expenses, { ...data, id: expenses.length + 1 }]);
+  };
+
   return (
     <Container>
-      <ExpensesFilter
-        onSelectedCategory={(category) => handleSelectedCategory(category)}
-      />
+      <ExpensesForm onAddExpense={(data) => handleAddExpense(data)} />
+      <Box mb={2} mt={2}>
+        <ExpensesFilter
+          onSelectedCategory={(category) => handleSelectedCategory(category)}
+        />
+      </Box>
       <ExpensesTable
         expenses={visibleExpenses}
         onDelete={(id) => handleDelete(id)}

@@ -19,7 +19,7 @@ const ExpensesTable = ({ expenses, onDelete }: Props) => {
   }
 
   return (
-    <TableContainer component={Paper} sx={{ border: "2px solid #d5d5d5" }}>
+    <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
         <TableHead>
           <TableRow>

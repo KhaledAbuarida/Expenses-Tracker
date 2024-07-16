@@ -1,5 +1,6 @@
 import MenuItem from "@mui/material/MenuItem";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
+import { categories } from "../utils/data";
 
 interface Props {
   onSelectedCategory: (category: string) => void;
@@ -17,9 +18,11 @@ const ExpensesFilter = ({ onSelectedCategory }: Props) => {
       fullWidth
     >
       <MenuItem value={"All Categories"}>All Categories</MenuItem>
-      <MenuItem value={"Groceries"}>Groceries</MenuItem>
-      <MenuItem value={"Utilities"}>Utilities</MenuItem>
-      <MenuItem value={"Entertainments"}>Entertainments</MenuItem>
+      {categories.map((category) => (
+        <MenuItem key={category} value={category}>
+          {category}
+        </MenuItem>
+      ))}
     </Select>
   );
 };
