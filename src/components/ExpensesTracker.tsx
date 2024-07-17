@@ -1,8 +1,6 @@
 import { useState } from "react";
 import ExpensesFilter from "./ExpensesFilter";
 import ExpensesTable from "./ExpensesTable";
-import Container from "@mui/material/Container";
-import Box from "@mui/material/Box";
 import { expensesSample } from "../utils/data";
 import ExpensesForm from "./ExpensesForm";
 import Expense from "../types/ExpenseType";
@@ -40,18 +38,25 @@ const ExpensesTracker = () => {
   };
 
   return (
-    <Container>
-      <ExpensesForm onAddExpense={(data) => handleAddExpense(data)} />
-      <Box mb={2} mt={2}>
-        <ExpensesFilter
-          onSelectedCategory={(category) => handleSelectedCategory(category)}
-        />
-      </Box>
-      <ExpensesTable
-        expenses={visibleExpenses}
-        onDelete={(id) => handleDelete(id)}
-      />
-    </Container>
+    <section className="bg-gray-100 grid grid-rows-12 h-auto min-h-screen">
+      <div className="flex justify-center items-center row-span-1">
+        <h1 className="text-2xl font-bold">Expense Tracker App</h1>
+      </div>
+      <div className=" grid grid-cols-2 w-full row-span-11">
+        <div className="flex justify-center items-baseline mt-40">
+          <ExpensesForm onAddExpense={(data) => handleAddExpense(data)} />
+        </div>
+        <div className="flex flex-col justify-center pr-4">
+          <ExpensesFilter
+            onSelectedCategory={(category) => handleSelectedCategory(category)}
+          />
+          <ExpensesTable
+            expenses={visibleExpenses}
+            onDelete={(id) => handleDelete(id)}
+          />
+        </div>
+      </div>
+    </section>
   );
 };
 

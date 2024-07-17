@@ -1,35 +1,29 @@
-import MenuItem from "@mui/material/MenuItem";
-import Select, { SelectChangeEvent } from "@mui/material/Select";
 import { categories } from "../utils/data";
-import InputLabel from "@mui/material/InputLabel";
-import FormControl from "@mui/material/FormControl";
 
 interface Props {
   onSelectedCategory: (category: string) => void;
 }
 
 const ExpensesFilter = ({ onSelectedCategory }: Props) => {
-  const handleChange = (event: SelectChangeEvent) => {
+  const handleChange = (event: any) => {
     onSelectedCategory(event.target.value);
   };
 
   return (
-    <>
-      <InputLabel>Filter Categories</InputLabel>
-      <Select
-        size="small"
-        defaultValue="All Categories"
-        onChange={(event: SelectChangeEvent) => handleChange(event)}
-        fullWidth
+    <section className="flex flex-col justify-start items-start p-4 ">
+      <label className="font-medium text-gray-800">Filter Categories</label>
+      <select
+        onChange={(event) => handleChange(event)}
+        className="bg-gray-50 w-full border border-gray-300 rounded-lg mt-0.5 py-2 px-2 placeholder:text-gray-200 focus:outline-blue-600 focus:ring-blue-300 focus:ring-4"
       >
-        <MenuItem value={"All Categories"}>All Categories</MenuItem>
+        <option value={"All Categories"}>All Categories</option>
         {categories.map((category) => (
-          <MenuItem key={category} value={category}>
+          <option key={category} value={category}>
             {category}
-          </MenuItem>
+          </option>
         ))}
-      </Select>
-    </>
+      </select>
+    </section>
   );
 };
 

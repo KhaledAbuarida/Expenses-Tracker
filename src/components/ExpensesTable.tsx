@@ -1,11 +1,3 @@
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
-import Paper from "@mui/material/Paper";
-import Button from "@mui/material/Button";
 import Expense from "../types/ExpenseType";
 
 interface Props {
@@ -19,52 +11,44 @@ const ExpensesTable = ({ expenses, onDelete }: Props) => {
   }
 
   return (
-    <TableContainer component={Paper}>
-      <Table sx={{ minWidth: 650 }} aria-label="simple table">
-        <TableHead>
-          <TableRow>
-            <TableCell sx={{ fontWeight: "bold" }}>Description</TableCell>
-            <TableCell sx={{ fontWeight: "bold" }}>Amount</TableCell>
-            <TableCell sx={{ fontWeight: "bold" }}>Category</TableCell>
-            <TableCell align="right"></TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
+    <section className="p-4 w-full flex justify-center items-center">
+      <table className="table-auto w-full rounded-lg p-2">
+        <thead className="text-lg font-medium border-b-2 border-gray-400">
+          <tr>
+            <td className="p-1">Description</td>
+            <td>Amount</td>
+            <td>Category</td>
+            <td></td>
+          </tr>
+        </thead>
+        <tbody>
           {expenses.map((expense) => (
-            <TableRow
-              key={expense.id}
-              sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-            >
-              <TableCell component="th" scope="row">
-                {expense.description}
-              </TableCell>
-              <TableCell>{expense.amount}</TableCell>
-              <TableCell>{expense.category}</TableCell>
-              <TableCell align="right">
-                <Button
-                  variant={"outlined"}
-                  color={"error"}
-                  onClick={() => onDelete(expense.id)}
+            <tr key={expense.id}>
+              <td className="p-3">{expense.description}</td>
+              <td className="p-3">{expense.amount}</td>
+              <td className="p-3">{expense.category}</td>
+              <td>
+                <button
+                  onClick={() => onDelete(expense.id!)}
+                  className="bg-red-400 text-white py-1 px-2 rounded-lg hover:bg-red-500"
                 >
                   Delete
-                </Button>
-              </TableCell>
-            </TableRow>
+                </button>
+              </td>
+            </tr>
           ))}
-          <TableRow sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
-            <TableCell component="th" scope="row" sx={{ fontWeight: "bold" }}>
-              Total Amount
-            </TableCell>
-            <TableCell sx={{ fontWeight: "bold" }}>
+          <tr>
+            <td className="py-2">Total Amount</td>
+            <td>
               $
               {expenses
                 .reduce((acc, expenses) => expenses.amount + acc, 0)
                 .toFixed(2)}
-            </TableCell>
-          </TableRow>
-        </TableBody>
-      </Table>
-    </TableContainer>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
   );
 };
 
