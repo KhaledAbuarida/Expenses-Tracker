@@ -8,8 +8,8 @@ import { categories } from "../utils/data";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import FormLabel from "@mui/material/FormLabel";
 import Expense from "../types/ExpenseType";
+import InputLabel from "@mui/material/InputLabel";
 
 interface Props {
   onAddExpense: (expense: Expense) => void;
@@ -39,19 +39,19 @@ const ExpensesForm = ({ onAddExpense }: Props) => {
   });
 
   const onSubmit = (data: Expense) => {
-    console.log(data);
     onAddExpense(data);
     reset();
   };
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <Grid container flexDirection={"column"} gap={2}>
+      <Grid container flexDirection={"column"} gap={1}>
         <Grid>
+          <InputLabel>Description</InputLabel>
           <TextField
             fullWidth
-            label="Description"
             variant="outlined"
+            size="small"
             {...register("description")}
           />
           {errors.description?.message && (
@@ -62,10 +62,11 @@ const ExpensesForm = ({ onAddExpense }: Props) => {
         </Grid>
 
         <Grid>
+          <InputLabel>Amount</InputLabel>
           <TextField
             fullWidth
-            label="Amount"
             variant="outlined"
+            size="small"
             {...register("amount")}
           />
           {errors.amount?.message && (
@@ -76,8 +77,15 @@ const ExpensesForm = ({ onAddExpense }: Props) => {
         </Grid>
 
         <Grid>
-          <FormLabel>Category</FormLabel>
-          <Select fullWidth {...register("category")}>
+          <InputLabel>Category</InputLabel>
+          <Select
+            // labelId="demo-simple-select-label"
+            // id="demo-simple-select"
+            // label="category"
+            fullWidth
+            size="small"
+            {...register("category")}
+          >
             {categories.map((category) => (
               <MenuItem key={category} value={category}>
                 {category}
